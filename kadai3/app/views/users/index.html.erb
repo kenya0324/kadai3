@@ -1,0 +1,65 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-xs-3'>
+      <%= flash[:success] %>
+   <h2>User info</h2>
+   <% if @user.errors.any? %>
+  <div class="alert alert-warning">
+    <h2><%= @user.errors.count %>errors prohibited this obj from being saved</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+   <table class="table table-striped">
+    <tr>
+       <th><%= attachment_image_tag current_user, :profile_image, :fill,100,100, fallback: "no_image-c7305210e2d30bf8f19461ca05a151bba6413a44a35124f673246160efefdc5e.jpg" %></th>
+    </tr>
+    <tr>
+         <th>name</th>
+         <th><%= current_user.name %></th>
+      </tr>
+      <tr>
+         <th>introduction</th>
+         <th><%= current_user.introduction %></th>
+      </tr>
+   </table>
+
+   <%= link_to "", edit_user_path(current_user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
+
+     <h2>New book</h2>
+
+       <%= form_for(@book) do |f| %>
+
+    <h4>Title</h4>
+    <%= f.text_field :title %>
+    <h4>Opinion</h4>
+    <%= f.text_area :body %>
+    <%= f.submit 'Creat book' %>
+    <% end %>
+
+    </div>
+
+    <div class='col-xs-9'>
+     <h2>Users</h2>
+     <table class='table table-hover table-inverse'>
+  <thead>
+  	 <tr>
+	  	<th>image</th>
+	  	<th>name</th>
+	 </tr>
+  </thead>
+	 <tr>
+     <% @users.each do |user| %>
+     <th><%= attachment_image_tag user, :profile_image, :fill,100,100, fallback: "no_image-c7305210e2d30bf8f19461ca05a151bba6413a44a35124f673246160efefdc5e.jpg" %></th>
+     <th><%= user.name %></th>
+     <th><%=link_to "show", user_path(user.id) %></th>
+     </tr>
+     <% end %>
+</table>
+</div>
+</div>
+</div>
